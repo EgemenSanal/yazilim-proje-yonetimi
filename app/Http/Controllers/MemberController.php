@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMemberRequest;
 use App\Http\Requests\UpdateMemberRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class MemberController extends Controller
@@ -18,7 +20,23 @@ class MemberController extends Controller
      */
     public function index()
     {
-        return Member::all();
+        $userId = Auth::id();
+        $member = DB::table('members')->where('id', $userId)->first();
+        if (!$member) {
+            return response()->json(['error' => 'Member not found'], 404);
+        }
+        if ($member->role === 'A') {
+            return response()->json([
+                'message' => 'success',
+                'members' => Member::all(),
+                'data' => $member
+
+            ]);
+    }
+        return response()->json([
+            'message' => 'success',
+            'data' => $member
+        ]);
     }
 
     /**
@@ -62,6 +80,7 @@ class MemberController extends Controller
             'email' => 'required|email|',
             'password' => 'required',
             'age' => 'required',
+            'role' => 'required',
         ]);
         $fields['password'] = Hash::make($fields['password']);
         $user = Member::create($fields);
@@ -81,9 +100,27 @@ class MemberController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Member $member)
+    public function show($id)
     {
-        //
+        $member_searched = Member::find($id);
+        $userId = Auth::id();
+        $member = DB::table('members')->where('id', $userId)->first();
+        if (!$member) {
+            return response()->json(['error' => 'Member not found'], 404);
+        }
+        if ($member->role === 'A') {
+            return response()->json([
+                'message' => 'success',
+                'name' => $member_searched->name,
+                'email' => $member_searched->email,
+                'role' => $member_searched->role,
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'Cant access',
+            ]);
+        }
+
     }
 
     /**

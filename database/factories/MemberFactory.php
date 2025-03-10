@@ -26,6 +26,7 @@ class MemberFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'password' => $hashedpassword,
             'age' => $this->faker->numberBetween(13, 60),
+            'role' => $this->faker->randomElement(['M', 'A']),
         ];
     }
 }

@@ -17,7 +17,14 @@ class BookFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => $this->faker->text(18),
+            'author' => $this->faker->name(),
+            'description' => $this->faker->text(),
+            'publisher' => $this->faker->company(),
+            'year' => $this->faker->year(),
+            'pages' => $this->faker->numberBetween(47,500),
+            //'file_path' => $this->faker->imageUrl(),
+            'cover_image' => $this->faker->imageUrl(),
         ];
     }
 }

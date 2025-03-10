@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('year');
             $table->integer('pages');
             $table->text('description');
-            $table->string('file_path');
+            $table->string('file_path')->nullable();
             $table->string('cover_image');
             $table->timestamps();
         });
