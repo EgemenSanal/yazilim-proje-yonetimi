@@ -17,10 +17,11 @@ function Login() {
     onSubmit: async (values) => {
       setLoading(true);
       try {
-        const response = await axios.post("/login", values);
-        
+        const response = await axios.post("/api/login", values);
+        console.log(response.error);
+        console.log(response.data);
         const { token } = response.data;
-        localStorage.setItem('jwt_token', token); 
+        localStorage.setItem('jwt_token', token);
 
       
         navigate("/Adminlogin"); // Admin login paneline yönlendiriyoruz
