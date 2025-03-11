@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\BookController;
 use App\Models\Member;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,4 +18,9 @@ Route::controller(MemberController::class)->group(function () {
     Route::put('/user/{member}', [MemberController::class, 'update'])->middleware('auth:api');
     Route::delete('/user/{member}', [MemberController::class, 'destroy'])->middleware('auth:api');
     Route::patch('/user/{member}', [MemberController::class, 'update'])->middleware('auth:api');
+});
+
+Route::controller(BookController::class)->group(function () {
+    Route::get('/books', 'index');
+    Route::post('/books', 'store');
 });

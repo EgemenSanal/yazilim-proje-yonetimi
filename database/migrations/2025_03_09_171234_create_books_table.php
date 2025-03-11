@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('file_path')->nullable();
             $table->string('cover_image');
+            $table->enum('18+', ['yes', 'no'])->default('no');
             $table->timestamps();
         });
     }

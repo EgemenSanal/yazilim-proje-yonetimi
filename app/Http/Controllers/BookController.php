@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
+use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
@@ -14,7 +15,7 @@ class BookController extends Controller
      */
     public function index()
     {
-
+        return Book::all();
     }
 
     /**
@@ -28,9 +29,23 @@ class BookController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBookRequest $request)
+    public function store(Request $request)
     {
-        //
+        $fields = $request->validate([
+            'title' => 'required',
+            'author' => 'required',
+            'description' => 'required',
+            'publisher' => 'required',
+            'year' => 'required',
+            'pages' => 'required',
+            'file_path' => 'required',
+            'cover_image' => 'required',
+            '18+' => 'required',
+        ]);
+        Book::create($fields);
+        return response()->json([
+            'Book created successfully'
+        ]);
     }
 
     /**

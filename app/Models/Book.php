@@ -21,7 +21,8 @@ class Book extends Authenticatable
         'year',
         'pages',
         'file_path',
-        'cover_image'
+        'cover_image',
+        '18+'
     ];
 
 }
