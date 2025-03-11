@@ -14,4 +14,7 @@ Route::controller(MemberController::class)->group(function () {
     Route::post('/login', 'login');
     Route::post('/register', 'register');
     Route::get('/user/{id}', [MemberController::class, 'show'])->middleware('auth:api');
+    Route::put('/user/{member}', [MemberController::class, 'update'])->middleware('auth:api');
+    Route::delete('/user/{member}', [MemberController::class, 'destroy'])->middleware('auth:api');
+    Route::patch('/user/{member}', [MemberController::class, 'update'])->middleware('auth:api');
 });

@@ -134,9 +134,21 @@ class MemberController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMemberRequest $request, Member $member)
+    public function update(Request $request, Member $member)
     {
-        //
+        $fields = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required',
+            'password' => 'sometimes,required',
+            'role' => 'required'
+        ]);
+
+        $member->update($fields);
+
+        return ([
+            'success',
+            'The user was updated successfully.'
+        ]);
     }
 
     /**
