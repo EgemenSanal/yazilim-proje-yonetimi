@@ -79,8 +79,8 @@ class MemberController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|',
             'password' => 'required',
+            'passwordagain' => 'required|same:password',
             'age' => 'required',
-            'role' => 'required',
         ]);
         $fields['password'] = Hash::make($fields['password']);
         $user = Member::create($fields);
