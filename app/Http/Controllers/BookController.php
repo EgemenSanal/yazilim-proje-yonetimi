@@ -32,7 +32,7 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        // Validation
+        //validation
         $request->validate([
             'title' => 'required|string|max:255',
             'author' => 'required|string|max:255',
@@ -44,7 +44,7 @@ class BookController extends Controller
             'pdf_file' => 'nullable|mimes:pdf|max:10000',
         ]);
 
-        // Kitap bilgilerini kaydet
+        //save book infos
         $book = new Book();
         $book->title = $request->title;
         $book->author = $request->author;
@@ -53,13 +53,13 @@ class BookController extends Controller
         $book->year = $request->year;
         $book->age_limit = $request->age_limit;
 
-        // Kapak resmini kaydet
+        //save cover image
         if ($request->hasFile('cover_image')) {
             $coverImagePath = $request->file('cover_image')->store('cover_images', 'public');
             $book->cover_image_path = $coverImagePath;
         }
 
-        // PDF dosyasını kaydet
+        //save pdf file
         if ($request->hasFile('pdf_file')) {
             $pdfFilePath = $request->file('pdf_file')->store('pdf_files', 'public');
             $book->pdf_file_path = $pdfFilePath;

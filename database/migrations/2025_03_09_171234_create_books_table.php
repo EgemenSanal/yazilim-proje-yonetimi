@@ -18,9 +18,9 @@ return new class extends Migration
             $table->text('description');
             $table->string('publisher');
             $table->integer('year');
-            $table->string('age_limit')->default(0);
-            $table->string('cover_image_path')->nullable(); // Kapak resmi yolu
-            $table->string('pdf_file_path')->nullable(); // PDF dosya yolu
+            $table->enum('age_limit', ['yes', 'no'])->default('no');
+            $table->string('cover_image_path')->nullable(); // cover image path
+            $table->string('pdf_file_path')->nullable(); // pdf path
             $table->timestamps();
         });
 
