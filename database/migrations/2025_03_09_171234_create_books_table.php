@@ -15,15 +15,15 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('author');
-            $table->string('publisher');
-            $table->string('year');
-            $table->integer('pages');
             $table->text('description');
-            $table->string('file_path')->nullable();
-            $table->string('cover_image');
-            $table->enum('18+', ['yes', 'no'])->default('no');
+            $table->string('publisher');
+            $table->integer('year');
+            $table->string('age_limit')->default(0);
+            $table->string('cover_image_path')->nullable(); // Kapak resmi yolu
+            $table->string('pdf_file_path')->nullable(); // PDF dosya yolu
             $table->timestamps();
         });
+
     }
 
     /**

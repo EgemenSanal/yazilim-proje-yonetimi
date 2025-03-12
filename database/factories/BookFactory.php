@@ -22,9 +22,8 @@ class BookFactory extends Factory
             'description' => $this->faker->text(),
             'publisher' => $this->faker->company(),
             'year' => $this->faker->year(),
-            'pages' => $this->faker->numberBetween(47,500),
             //'file_path' => $this->faker->imageUrl(),
-            'cover_image' => $this->faker->imageUrl(),
+            //'cover_image' => $this->faker->imageUrl(),
         ];
     }
 }

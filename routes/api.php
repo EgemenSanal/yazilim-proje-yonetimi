@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\BookController;
 use App\Models\Member;
@@ -22,9 +23,11 @@ Route::controller(MemberController::class)->group(function () {
 
 Route::controller(BookController::class)->group(function () {
     Route::get('/books', 'index');
-    Route::post('/books', 'store');
     Route::get('/books/{id}', 'show');
     Route::patch('/books/{book}', 'patch');
     Route::put('/books/{book}', 'put');
     Route::delete('/books/{book}', 'destroy');
 });
+Route::post('/upload', [FileUploadController::class, 'upload']);
+Route::post('/books', [BookController::class, 'store'])->middleware('auth:api');
+

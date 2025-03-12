@@ -19,10 +19,10 @@ class Book extends Authenticatable
         'description',
         'publisher',
         'year',
-        'pages',
-        'file_path',
-        'cover_image',
-        '18+'
+        'age_limit',
+        'cover_image_path',
+        'pdf_file_path',
     ];
+
 
 }

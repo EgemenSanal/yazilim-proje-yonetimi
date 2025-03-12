@@ -32,22 +32,45 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        $fields = $request->validate([
-            'title' => 'required',
-            'author' => 'required',
-            'description' => 'required',
-            'publisher' => 'required',
-            'year' => 'required',
-            'pages' => 'required',
-            'file_path' => 'required',
-            'cover_image' => 'required',
-            '18+' => 'required',
+        // Validation
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'author' => 'required|string|max:255',
+            'description' => 'required|string',
+            'publisher' => 'required|string|max:255',
+            'year' => 'required|integer',
+            'age_limit' => 'required|string|max:255',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'pdf_file' => 'nullable|mimes:pdf|max:10000',
         ]);
-        Book::create($fields);
-        return response()->json([
-            'Book created successfully'
-        ]);
+
+        // Kitap bilgilerini kaydet
+        $book = new Book();
+        $book->title = $request->title;
+        $book->author = $request->author;
+        $book->description = $request->description;
+        $book->publisher = $request->publisher;
+        $book->year = $request->year;
+        $book->age_limit = $request->age_limit;
+
+        // Kapak resmini kaydet
+        if ($request->hasFile('cover_image')) {
+            $coverImagePath = $request->file('cover_image')->store('cover_images', 'public');
+            $book->cover_image_path = $coverImagePath;
+        }
+
+        // PDF dosyasını kaydet
+        if ($request->hasFile('pdf_file')) {
+            $pdfFilePath = $request->file('pdf_file')->store('pdf_files', 'public');
+            $book->pdf_file_path = $pdfFilePath;
+        }
+
+        $book->save();
+
+        return response()->json(['message' => 'Kitap başarıyla eklendi!'], 201);
     }
+
+
 
     /**
      * Display the specified resource.
