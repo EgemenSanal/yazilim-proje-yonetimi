@@ -76,11 +76,10 @@ class MemberController extends Controller
     public function register(Request $request)
     {
         $fields = $request->validate([
-            'name' => 'required|max:255',
             'email' => 'required|email|',
             'password' => 'required',
             'passwordagain' => 'required|same:password',
-            'age' => 'required',
+            'role' => 'required'
         ]);
         $fields['password'] = Hash::make($fields['password']);
         $user = Member::create($fields);
@@ -111,7 +110,6 @@ class MemberController extends Controller
         if ($member->role === 'A') {
             return response()->json([
                 'message' => 'success',
-                'name' => $member_searched->name,
                 'email' => $member_searched->email,
                 'role' => $member_searched->role,
             ]);
@@ -137,7 +135,6 @@ class MemberController extends Controller
     public function update(Request $request, Member $member)
     {
         $fields = $request->validate([
-            'name' => 'required|max:255',
             'email' => 'required',
             'password' => 'sometimes,required',
             'role' => 'required'

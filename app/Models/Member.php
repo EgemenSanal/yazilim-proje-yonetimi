@@ -12,10 +12,8 @@ class Member extends Authenticatable
     /** @use HasFactory<\Database\Factories\MemberFactory> */
     use HasFactory,HasApiTokens,Notifiable;
     protected $fillable = [
-        'name',
         'email',
         'password',
-        'age',
         'role'
     ];
 

@@ -17,16 +17,13 @@ class MemberFactory extends Factory
      */
     public function definition(): array
     {
-        $name = $this->faker->name();
         $password = $this->faker->password();
         $hashedpassword = Hash::make($password);
 
         return [
-            'name' => $name,
             'email' => $this->faker->unique()->safeEmail(),
             'password' => $hashedpassword,
-            'age' => $this->faker->numberBetween(13, 60),
-            'role' => $this->faker->randomElement(['M', 'A']),
+            'role' => $this->faker->randomElement(['Teacher', 'Student']),
         ];
     }
 }
