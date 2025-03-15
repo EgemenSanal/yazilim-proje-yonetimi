@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Advert;
 use App\Models\Book;
 use App\Models\Member;
 use App\Models\User;
@@ -17,5 +18,6 @@ class DatabaseSeeder extends Seeder
     {
         Member::factory(20)->create();
         Book::factory(20)->create();
+        Advert::factory(20)->create();
     }
 }

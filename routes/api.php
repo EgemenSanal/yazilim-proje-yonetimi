@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdvertController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\BookController;
@@ -17,6 +18,10 @@ Route::controller(MemberController::class)->group(function () {
     Route::patch('/user/{member}', [MemberController::class, 'update'])->middleware('auth:api');
 });
 
+Route::controller(AdvertController::class)->group(function () {
+    Route::get('/adverts', 'index');
+    Route::post('/adverts', 'store');
+});
 
 Route::post('/upload', [FileUploadController::class, 'upload']);
 Route::post('/books', [BookController::class, 'store'])->middleware('auth:api');
