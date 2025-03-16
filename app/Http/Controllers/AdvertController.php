@@ -38,12 +38,23 @@ class AdvertController extends Controller
            'location' => 'sometimes|required',
            'lesson' => 'required',
             'profession' => 'required',
+            'video_file' => 'nullable|mimes:mp4,mov,ogg,webm',
         ]);
+        $advert = new Advert();
+        $advert->title = $request->title;
+        $advert->description = $request->description;
+        $advert->price = $request->price;
+        $advert->location = $request->location;
+        $advert->lesson = $request->lesson;
+        $advert->profession = $request->profession;
 
-        $advert = Advert::create($fields);
-        return [
-          'data' => $advert,
-        ];
+        if(request()->hasFile('video_file')){
+            $file = request()->file('video_file')->store('video', 'public');
+            $advert->video_path = $file;
+        }
+        $advert->save();
+        return response()->json(['message' => 'Advert added!'], 201);
+
     }
 
     /**

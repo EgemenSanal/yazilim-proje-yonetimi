@@ -15,6 +15,7 @@ class Advert extends Model
         'price',
         'profession',
         'location',
-        'lesson'
+        'lesson',
+        'video_path'
         ];
 }

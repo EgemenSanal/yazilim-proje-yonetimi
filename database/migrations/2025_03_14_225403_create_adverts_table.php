@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('profession');
             $table->string('location')->nullable();
             $table->string('lesson');
+            $table->string('video_path')->nullable();
             $table->timestamps();
         });
     }
