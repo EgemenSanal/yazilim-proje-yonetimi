@@ -69,6 +69,7 @@ class MemberController extends Controller
         $userid = $user->id;
         return [
             'user' => $user,
+            'role' => $user->role,
             'token' => $token->accessToken
         ];
 
@@ -79,7 +80,9 @@ class MemberController extends Controller
             'email' => 'required|email|',
             'password' => 'required',
             'passwordagain' => 'required|same:password',
-            'role' => 'required'
+            'role' => 'required',
+            'name' => 'required',
+            'surname' => 'required'
         ]);
         $fields['password'] = Hash::make($fields['password']);
         $user = Member::create($fields);

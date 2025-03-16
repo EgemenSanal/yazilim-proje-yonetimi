@@ -14,7 +14,9 @@ class Member extends Authenticatable
     protected $fillable = [
         'email',
         'password',
-        'role'
+        'role',
+        'name',
+        'surname',
     ];
 
     protected $hidden = [

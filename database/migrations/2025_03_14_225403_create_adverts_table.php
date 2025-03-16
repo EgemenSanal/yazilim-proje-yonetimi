@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('description');
-            $table->float('price');
+            $table->string('price');
             $table->string('profession');
             $table->string('location')->nullable();
             $table->string('lesson');
