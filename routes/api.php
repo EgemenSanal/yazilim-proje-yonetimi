@@ -21,6 +21,7 @@ Route::controller(MemberController::class)->group(function () {
 Route::controller(AdvertController::class)->group(function () {
     Route::get('/adverts', 'index');
     Route::post('/adverts', 'store');
+    Route::get('/adverts/{id}', 'show');
 });
 
 Route::post('/upload', [FileUploadController::class, 'upload']);

@@ -16,10 +16,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        // Tüm kitapları veritabanından çek
         $books = Book::all();
 
-        // Kitapların PDF ve resim URL'lerini oluştur
         $books->transform(function ($book) {
             if ($book->cover_image_path) {
                 $book->cover_image_url = asset('storage/' . $book->cover_image_path);
@@ -30,7 +28,6 @@ class BookController extends Controller
             return $book;
         });
 
-        // JSON olarak kitapları döndür
         return response()->json($books);
     }
 

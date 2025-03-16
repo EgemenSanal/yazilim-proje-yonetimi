@@ -15,7 +15,14 @@ class AdvertController extends Controller
      */
     public function index()
     {
-        return Advert::all();
+        $adverts = Advert::all();
+        $adverts->transform(function ($advert) {
+           if($advert->video_path){
+               $advert->video_url = asset('storage/'.$advert->video_path);
+           }
+           return $advert;
+        });
+        return response()->json($adverts);
     }
 
     /**
@@ -60,9 +67,18 @@ class AdvertController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Advert $advert)
+    public function show($id)
     {
-        //
+        $selected_advert = Advert::find($id);
+        if(!$selected_advert){
+            return response()->json(['message' => 'Advert not found!'], 404);
+        }
+
+            if($selected_advert->video_path){
+                $selected_advert->video_url = asset('storage/'.$selected_advert->video_path);
+                return $selected_advert;
+            }
+        return response()->json($selected_advert);
     }
 
     /**
