@@ -11,27 +11,28 @@ class StripeController extends Controller
     {
 
     }
-    public function checkout(){
+    public function checkout(Request $request)
+    {
         \Stripe\Stripe::setApiKey(config('stripe.sk'));
 
-        $session = \Stripe\Checkout\Session::create([
-            'line_items'  => [
-                [
-                    'price_data' => [
-                        'currency'     => 'gbp',
-                        'product_data' => [
-                            'name' => 'T-shirt',
-                        ],
-                        'unit_amount'  => 500,
-                    ],
-                    'quantity'   => 1,
-                ],
-            ],
-            'mode'        => 'payment',
-            'success_url' => route('success'),
-            'cancel_url'  => route('index'),
-        ]);
-        return redirect()->away($session->url);
+        $paymentMethodId = $request->paymentMethodId;
+
+        try {
+            $paymentIntent = \Stripe\PaymentIntent::create([
+                'amount' => 500,
+                'currency' => 'gbp',
+                'payment_method' => $paymentMethodId,
+                'confirmation_method' => 'manual',
+                'confirm' => true,
+                'return_url' => 'http://localhost:5173/',
+            ]);
+
+            return response()->json([
+                'success_url' => 'http://localhost:5173/',
+            ]);
+        } catch (\Stripe\Exception\ApiErrorException $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
     public function success(){
 
