@@ -25,7 +25,7 @@ Route::controller(AdvertController::class)->group(function () {
     Route::get('/adverts/{id}', 'show');
 });
 
-Route::post('/upload', [FileUploadController::class, 'upload']);
+// Route::post('/upload', [FileUploadController::class, 'upload']);
 Route::post('/books', [BookController::class, 'store'])->middleware('auth:api');
 
 Route::post('/checkout', [StripeController::class, 'checkout']);
