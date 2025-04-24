@@ -16,11 +16,12 @@ class StripeController extends Controller
         \Stripe\Stripe::setApiKey(config('stripe.sk'));
 
         $paymentMethodId = $request->paymentMethodId;
+        $amount = $request->amount;
 
         try {
             $paymentIntent = \Stripe\PaymentIntent::create([
-                'amount' => 500,
-                'currency' => 'gbp',
+                'amount' => $amount,
+                'currency' => 'try',
                 'payment_method' => $paymentMethodId,
                 'confirmation_method' => 'manual',
                 'confirm' => true,
