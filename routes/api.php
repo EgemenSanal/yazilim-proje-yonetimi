@@ -21,8 +21,10 @@ Route::controller(MemberController::class)->group(function () {
 
 Route::controller(AdvertController::class)->group(function () {
     Route::get('/adverts', 'index');
-    Route::post('/adverts', 'store');
+    Route::post('/adverts', 'store')->middleware('auth:api');
     Route::get('/adverts/{id}', 'show');
+    Route::get('/advertsbyid', 'getAdvertsById')->middleware('auth:api');
+    Route::delete('/adverts/{advert}','destroy');
 });
 
 // Route::post('/upload', [FileUploadController::class, 'upload']);

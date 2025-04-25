@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAdvertRequest;
 use App\Http\Requests\UpdateAdvertRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AdvertController extends Controller
 {
@@ -23,6 +25,17 @@ class AdvertController extends Controller
            return $advert;
         });
         return response()->json($adverts);
+    }
+
+    public function getAdvertsById(){
+
+        $member_id = Auth::id();
+        $adverts = DB::table('adverts')->where('member_id', $member_id)->get();
+
+        return response()->json($adverts);
+
+
+
     }
 
     /**
@@ -54,6 +67,7 @@ class AdvertController extends Controller
         $advert->location = $request->location;
         $advert->lesson = $request->lesson;
         $advert->profession = $request->profession;
+        $advert->member_id = Auth::id();
 
         if(request()->hasFile('video_file')){
             $file = request()->file('video_file')->store('video', 'public');
@@ -102,6 +116,7 @@ class AdvertController extends Controller
      */
     public function destroy(Advert $advert)
     {
-        //
+        $advert->delete();
+        return response()->json(["message" => "Advert deleted"]);
     }
 }

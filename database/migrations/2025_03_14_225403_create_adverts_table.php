@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('location')->nullable();
             $table->string('lesson');
             $table->string('video_path')->nullable();
+            $table->integer('member_id');
             $table->timestamps();
         });
     }
