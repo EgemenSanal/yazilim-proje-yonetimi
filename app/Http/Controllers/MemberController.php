@@ -38,6 +38,9 @@ class MemberController extends Controller
             'data' => $member
         ]);
     }
+    public function getAll(){
+        return Member::all();
+    }
 
     /**
      * Show the form for creating a new resource.
