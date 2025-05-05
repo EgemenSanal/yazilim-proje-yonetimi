@@ -110,6 +110,15 @@ class AdvertController extends Controller
     {
         //
     }
+    public function myAdverts()
+    {
+        $user = Auth::user();
+        $myPurchasesWithCourses = $user->purchases()->with('course')->get();
+
+        return [
+            'adverts' => $myPurchasesWithCourses
+        ];
+    }
 
     /**
      * Remove the specified resource from storage.

@@ -23,4 +23,8 @@ class Member extends Authenticatable
         'password',
         'remember_token',
     ];
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class, 'member_id');
+    }
 }
