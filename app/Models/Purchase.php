@@ -15,7 +15,8 @@ class Purchase extends Authenticatable
 
     protected $fillable = [
         'course_id',
-        'member_id'
+        'member_id',
+        'teacher_id'
     ];
     public function course()
     {

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('member_id');
+            $table->unsignedBigInteger('teacher_id');
 
             // Satın alınan dersi belirten foreign key
             $table->unsignedBigInteger('course_id');
@@ -24,6 +25,8 @@ return new class extends Migration
             // Foreign key ilişkileri
             $table->foreign('member_id')->references('id')->on('members')->onDelete('cascade');
             $table->foreign('course_id')->references('id')->on('adverts')->onDelete('cascade');
+            $table->foreign('teacher_id')->references('member_id')->on('adverts')->onDelete('cascade');
+
 
             // Her kullanıcı aynı dersi birden fazla satın almasın
             $table->unique(['member_id', 'course_id']);

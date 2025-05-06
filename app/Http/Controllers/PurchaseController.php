@@ -25,15 +25,18 @@ class PurchaseController extends Controller
     {
         $member_id = Auth::id();
         $validated = $request->validate([
-            'course_id' => 'required'
+            'course_id' => 'required',
+            'teacher_id' => 'required'
         ]);
         $validated['member_id'] = $member_id;
+
 
         Purchase::create($validated);
         return [
             'message' => 'success'
         ];
     }
+
 
     /**
      * Store a newly created resource in storage.

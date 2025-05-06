@@ -39,3 +39,4 @@ Route::get('/cancel', [StripeController::class, 'index'])->name('cancel');
 
 Route::post('/purchase', [PurchaseController::class, 'store'])->middleware('auth:api');
 
+
